@@ -6,8 +6,8 @@ import os
 import matplotlib.pyplot as plt
 
 
-image_dir_path = os.getenv("HOME") + "/PycharmProjects/gawibawibo/datasets/train"
-(x_train, y_train) = load_data(image_dir_path)
+image_dir_path = os.getenv("HOME") + "/PycharmProjects/aiffel_deep/datasets/train"
+(x_train, y_train) = load_data(image_dir_path, 5778)
 x_train_norm = x_train / 255.0  # 입력은 0~1 사이의 값으로 정규화
 
 # print("x_train shape: {}".format(x_train.shape))
@@ -19,12 +19,13 @@ x_train_norm = x_train / 255.0  # 입력은 0~1 사이의 값으로 정규화
 
 
 model=keras.models.Sequential()
-model.add(keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(28,28,3)))
+model.add(keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(28,28,3)))
 model.add(keras.layers.MaxPool2D(2,2))
-model.add(keras.layers.Conv2D(32, (3,3), activation='relu'))
+model.add(keras.layers.Conv2D(64, (3,3), activation='relu'))
 model.add(keras.layers.MaxPooling2D((2,2)))
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(32, activation='relu'))
+model.add(keras.layers.Dense(64, activation='relu'))
+model.add(keras.layers.Dense(128, activation='relu'))
 model.add(keras.layers.Dense(3, activation='softmax'))
 
 #
@@ -63,7 +64,7 @@ model.compile(optimizer='adam',
              loss='sparse_categorical_crossentropy',
              metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=100)
+model.fit(x_train, y_train, epochs=10)
 
 # print("Before Reshape - x_train_norm shape: {}".format(x_train_norm.shape))
 # # print("Before Reshape - x_test_norm shape: {}".format(x_test_norm.shape))
@@ -75,11 +76,11 @@ model.fit(x_train, y_train, epochs=100)
 # # print("After Reshape - x_test_reshaped shape: {}".format(x_test_reshaped.shape))
 
 
-image_dir_path = os.getenv("HOME") + "/PycharmProjects/gawibawibo/datasets/test"
-(x_test, y_test) = load_data(image_dir_path)
+image_dir_path_test = os.getenv("HOME") + "/PycharmProjects/aiffel_deep/datasets/test"
+(x_test, y_test) = load_data(image_dir_path_test, 150)
 x_test_norm = x_test / 255.0  # 입력은 0~1 사이의 값으로 정규화
 
 
-test_loss, test_accuracy = model.evaluate(x_test,y_test, verbose=2)
+test_loss, test_accuracy = model.evaluate(x_test, y_test, verbose=2)
 print("test_loss: {} ".format(test_loss))
 print("test_accuracy: {}".format(test_accuracy))

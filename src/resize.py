@@ -7,15 +7,18 @@ image_folder = ['rock','scissor', 'paper']
 
 # 파일마다 모두 28x28 사이즈로 바꾸어 저장합니다.
 target_size=(28,28)
-image_dir_path  = os.getenv("HOME")+ "/PycharmProjects/gawibawibo/datasets/"
+image_dir_path_test  = os.getenv("HOME")+ "/PycharmProjects/aiffel_deep/datasets/test/"
+# print(image_dir_path_test)
+
 
 for i in image_folder:
-    images = glob.glob(image_dir_path + i + "/*.jpg")
-
+    images = glob.glob(image_dir_path_test + i + "/*.jpg")
+    #print(image_dir_path_test + i + "/*.jpg")
+    #print(images)
     for img in images:
-        #print(img)
+        print(img)
         old_img=Image.open(img)
-        new_img=old_img.resize(target_size,Image.ANTIALIAS)
+        new_img=old_img.resize(target_size, Image.ANTIALIAS)
         new_img.save(img,"JPEG")
 
 print("resize 완료!")

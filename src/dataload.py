@@ -10,13 +10,12 @@ import matplotlib.pyplot as plt
 
 def load_data(img_path, cnt):
     # 가위 : 0, 바위 : 1, 보 : 2
-    number_of_data = 5778  # 가위바위보 이미지 개수 총합에 주의하세요.
+    #number_of_data = 5778  # 가위바위보 이미지 개수 총합에 주의하세요.
     img_size = 28
     color = 3
     # 이미지 데이터와 라벨(가위 : 0, 바위 : 1, 보 : 2) 데이터를 담을 행렬(matrix) 영역을 생성합니다.
-    imgs = np.zeros(number_of_data * img_size * img_size * color, dtype=np.int32).reshape(number_of_data, img_size,
-                                                                                          img_size, color)
-    labels = np.zeros(number_of_data, dtype=np.int32)
+    imgs = np.zeros(cnt * img_size * img_size * color, dtype=np.int32).reshape(cnt, img_size, img_size, color)
+    labels = np.zeros(cnt, dtype=np.int32)
 
     idx = 0
     for file in glob.iglob(img_path + '/scissor/*.jpg'):
